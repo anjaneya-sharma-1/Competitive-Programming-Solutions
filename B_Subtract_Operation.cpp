@@ -10,19 +10,34 @@ void solve() {
     cin>>n>>k;
     ll sum=0;
     vector<ll> v;
+    bool chck=0;
     for(int i=0;i<n;i++){
         ll curr;
         cin>>curr;
-        sum+=curr;
         v.push_back(curr);
+
     }
-    for(int i=0;i<n;i++){
-        if(2*v[i]-sum==k){
-            cout<<"YES"<<endl;
-            return;
+    sort(v.begin(),v.end());
+    int i=0;
+    int j=1;
+    while(i<n&&j<n){
+        if(v[j]-v[i]==abs(k)){
+            chck=1;
+            break;
+        }
+        else if(v[j]-v[i]<abs(k)){
+            j++;
+        }
+        else{
+            i++;
         }
     }
+    if(chck){
+        cout<<"YES"<<endl;
+        return;
+    }
     cout<<"NO"<<endl;
+    return;
     
 }
 

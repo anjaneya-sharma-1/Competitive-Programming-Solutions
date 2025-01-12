@@ -8,30 +8,29 @@ class Solution{
 void solve() {
     ll n,m;
     cin>>n>>m;
-    vector<pair<ll,ll>>p;
+    vector<ll>p(n+1,n+1);
+    
     for(int i =0;i<m;i++){
         ll x,y;
         cin>>x>>y;
         if(x>y){
             swap(x,y);
         }
-        
-        p.push_back({x,y});
+       if(p[x]==-1){
+           p[x]=y;
+       }
+       else{
+           p[x]=min(p[x],y);
+       }
     }
-    sort(p.begin(),p.end());
     ll ans=0;
-    ll prev;
-    ll maxi=p[0].first;
-    for(int i =0;i<p.size();i++){
-        if(i==0||prev!=p[i].first){
-            ans+=(1<<(p[i].second-maxi));
-            maxi=p[i].first;
-            prev=p[i].first;
-        }
+    for(int i=n-1;i>=1;i--){
+        p[i]=min(p[i],p[i+1]);
     }
-    cout<<ans<<endl;
-
-    
+    for(int i=1;i<=n;i++){
+        ans+=p[i]-i;
+    }
+    cout<<ans<<endl;    
 }
 
 };

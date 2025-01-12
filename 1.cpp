@@ -6,7 +6,7 @@ using namespace std;
 class Solution{
     public:
 void solve() {
-
+    
     
 }
 
@@ -14,6 +14,8 @@ void solve() {
 int main(){
     ll t;
     cin >> t;
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
     
     while (t--){ 
         Solution* s = new Solution(); 

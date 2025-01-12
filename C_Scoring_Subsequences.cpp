@@ -14,12 +14,18 @@ void solve() {
         cin>>curr;
         v.push_back(curr);
     }
-    ll left =0;
-    ll right = 0;
-    ll curr=0;
-    for(ll j = 0;j<n;j++){
-        
+    ll maxi=1;
+    ll l=0;
+    ll curr=1;
+    vector<ll>dp(n,0);
+ 
+    for(int i=0;i<n;i++){
+        while(l<i&&v[l]<i+1-l){
+            l++;
+        }
+        cout<<i-l+1<<" ";
     }
+    cout<<endl;
     
 }
 

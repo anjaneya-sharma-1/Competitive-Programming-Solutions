@@ -10,20 +10,53 @@ void solve() {
     cin>>n>>k;
     string s;
     cin>>s;
-    ll ans=0;
-    ll l=0;
-    ll c1=0,c0=0,cq=0;
+    ll one=0;
+    ll zero=0;
+    ll l=0; 
+    if(k%2){
+        cout<<"NO"<<endl;
+        return;
+    }
+    ll q=0;
     for(int r=0;r<k;r++){
-        if(s[r]=='1'){
-            c1++;
+        ll c1=0,c0=0,cq=0;
+        for(int i=r;i<n;i+=k){
+            if(s[i]=='1'){
+                c1++;
+            }
+            else if(s[i]=='0'){
+                c0++;
+            }
+            else{
+                cq++;
+            }
         }
-        else if(s[r]=='0'){
-            c0++;
+        if(c1&&c0){
+            cout<<"NO"<<endl;
+            return;
         }
         else{
-            cq++;
+            if(c1){
+                
+                one++;
+            }
+            else if(c0){
+               
+                zero++;
+            }
+            else{
+                q++;
+            }
         }
+        
     }
+    if((one!=zero&&(q<(abs(one-zero))||(q-abs(one-zero))%2))){
+        cout<<"NO"<<endl;
+        return;
+    }
+    
+    
+    cout<<"YES"<<endl;
     
     
 }

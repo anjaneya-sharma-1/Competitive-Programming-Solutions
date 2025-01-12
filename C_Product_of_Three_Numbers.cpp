@@ -5,29 +5,23 @@ using namespace std;
 #define MOD 1000000007
 class Solution{
     public:
-ll gc(ll a){
-    ll ans=1;
-    for(ll i=2;i*i<=a;i++){
-        if(a%i==0){
-            ans=i;
-            break;
-        }
-    }
-    return a/ans;
-}
+
 void solve() {
     ll n;
     cin>>n;
-    ll a,b,c,d,e;
-    set<ll> s;
-    
-    if(a==1||b==1||c==1){
-        cout<<"NO"<<endl;
+    for(int i=2;i<sqrt(n);i++){
+        if(n%i==0){
+            ll m=n/i;
+            for(int j=i+1;j<sqrt(m);j++){
+                if(m%j==0){
+                    cout<<"YES"<<endl;
+                    cout<<i<<" "<<j<<" "<<m/j<<endl;
+                    return;
+                }
+            }
+        }
     }
-    else{
-        cout<<"YES"<<endl;
-        cout<<a<<" "<<b<<" "<<c<<endl;
-    }
+    cout<<"NO"<<endl;
     
 }
 
