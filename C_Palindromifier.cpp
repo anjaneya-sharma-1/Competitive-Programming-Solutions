@@ -6,17 +6,19 @@ using namespace std;
 class Solution{
     public:
 void solve() {
+    string s;
+    cin>>s;
+    cout<<3<<endl;
+    cout<<"R "<<s.size()-1<<endl;
+    cout<<"L "<<s.size()<<endl;
+    cout<<"L "<<2<<endl;
     
     
 }
 
 };
 int main(){
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    ll t;
-    cin >> t;
-    
+    ll t=1;
     
     while (t--){ 
         Solution* s = new Solution(); 
