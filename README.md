@@ -4,7 +4,7 @@ Welcome to my Competitive Programming Solutions repository! 🚀
 This repository is a collection of my solutions to various competitive programming problems. It serves as a personal archive to track my progress and share my solutions with the community.
 My Codeforces Profile : @anjaneyasharma
 
----
+
 
 ## 📝 About This Repository
 
@@ -15,7 +15,7 @@ My Codeforces Profile : @anjaneyasharma
 - The solutions are added **daily** as I solve new problems.  
 - There is **no specific structure**—all solutions are stored together.
 
----
+
 
 ## 🔧 Tools & Languages
 
@@ -24,7 +24,7 @@ I primarily use:
 - **Editor/IDE**: VS Code
 - **Extension Used** : CPH
 
----
+
 
 ## 🌟 How to Use This Repository
 
@@ -32,7 +32,7 @@ I primarily use:
 - Use the solutions for reference or as a learning resource.
 - Feel free to suggest improvements or optimizations via GitHub issues or pull requests.
 
----
+
 
 ## 🤝 Contributions
 
@@ -40,7 +40,7 @@ This repository is primarily for my personal progress tracking, but contribution
 - Spot a mistake or have an optimization idea, open an issue or PR.
 - Have any feedback or suggestions, feel free to share.
 
----
+
 
 ## 📈 Updates
 
