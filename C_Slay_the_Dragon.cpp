@@ -17,8 +17,7 @@ void solve() {
     sort(a.begin(),a.end());
     ll m;
     cin>>m;
-    vector<pair<ll,ll>>d(m);
-    
+    vector<pair<ll,ll>>d(m);    
     for(ll i=0;i<m;i++){
         cin>>d[i].first>>d[i].second;
     }
@@ -30,14 +29,11 @@ void solve() {
             ans=min(ans,d[i].first-a[l]+max(0ll,d[i].second-(sum-a[l])));
         }
         if(u<n){
-
             ans=min(ans,max(0ll,d[i].second-(sum-a[u])));
         }
         cout<<ans<<endl;
-    }
-    
+    } 
 }
-
 };
 int main(){
     std::ios::sync_with_stdio(false);

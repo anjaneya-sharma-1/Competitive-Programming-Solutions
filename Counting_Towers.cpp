@@ -12,8 +12,15 @@ void solve() {
     dp[0]=1;    
     dp[1]=2;
     ll sum=3;
+    vector<ll>dp2(n+1);
+    dp2[0]=1;
+    dp2[1]=1;
+    ll sum2=2;
+    for(int i=2;i<=n;i++){
+        dp2[i]=(sum2+dp2[i-1])%MOD;
+    }
     for(ll i=2;i<=n;i++){
-        dp[i]=(sum+dp[i-1])%MOD;
+        dp[i]=(sum+dp2[i]*dp2[i])%MOD;
         sum=(sum+dp[i])%MOD;
     }
     cout<<dp[n]<<endl;
