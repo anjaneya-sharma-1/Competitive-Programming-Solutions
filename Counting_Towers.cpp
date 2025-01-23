@@ -8,25 +8,6 @@ class Solution{
 void solve() {
     ll n;
     cin>>n;
-    vector<ll>dp(n+1);
-    dp[0]=1;    
-    dp[1]=2;
-    ll sum=3;
-    vector<ll>dp2(n+1);
-    dp2[0]=1;
-    dp2[1]=1;
-    ll sum2=2;
-    for(int i=2;i<=n;i++){
-        dp2[i]=(sum2+dp2[i-1])%MOD;
-    }
-    for(ll i=2;i<=n;i++){
-        dp[i]=(sum+dp2[i]*dp2[i])%MOD;
-        sum=(sum+dp[i])%MOD;
-    }
-    cout<<dp[n]<<endl;
-    
-
-    
 }
 
 };
@@ -35,12 +16,20 @@ int main(){
     std::cin.tie(nullptr);
     ll t;
     cin >> t;
+        vector<vector<ll>>dp(N+1,vector<ll>(2,0));
+    dp[1][0]=1;    
+    dp[1][1]=1;
+    for(ll i=2;i<=N;i++){
+        dp[i][0]=(dp[i-1][0]*4+dp[i-1][1])%MOD;
+        dp[i][1]=(dp[i-1][0]+dp[i-1][1]*2)%MOD;
+    }
+
     
     
     while (t--){ 
-        Solution* s = new Solution(); 
-        s->solve();
-        delete s; 
+        ll n;
+        cin>>n;
+        cout<<(dp[n][0]+dp[n][1])%MOD<<endl;  
 
         }
     return 0;
