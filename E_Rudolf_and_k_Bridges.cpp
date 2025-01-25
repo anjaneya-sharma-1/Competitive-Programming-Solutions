@@ -35,7 +35,9 @@ void solve() {
         mini=min(mini,curr);
     }
     cout<<mini<<endl;
+    
 }
+
 };
 int main(){
     std::ios::sync_with_stdio(false);
