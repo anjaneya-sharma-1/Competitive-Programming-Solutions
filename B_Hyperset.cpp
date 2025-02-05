@@ -5,20 +5,38 @@ using namespace std;
 #define MOD 1000000007
 class Solution{
     public:
-    ll nCr(ll n, ll r)
-{
-    ll ans = 1;
-        for (int i = 1, j = n - r + 1; i <= r; ++i, ++j) ans = ans * j / i;
-        return ans;
-
-}
 void solve() {
     ll n,k;
     cin>>n>>k;
-    vector<ll>v(k,0);
-    for(int i =0;i<n;i++){
-        for(int j)
+    unordered_map<string,ll>m;
+    vector<string>v;
+    for(int i=0;i<n;i++){
+        string s;
+        cin>>s;
+        v.push_back(s);
+        m[s]=1;
     }
+    ll ans=0;
+    vector<char>st={'S','E','T'};
+    for(int i=0;i<n;i++){
+        for(int j=i+1;j<n;j++){
+            string s1=v[i];
+            string s2=v[j];
+            string s3=s1;
+            for(int a=0;a<k;a++){
+                if(s1[a]!=s2[a]){
+                    for(int b=0;b<3;b++){
+                        if(s1[a]==st[b]||s2[a]==st[b]){
+                            continue;
+                        }
+                        s3[a]=st[b];
+                    }
+                }   
+            }
+            ans+=m[s3];
+        }
+    }
+    cout<<ans/3<<endl;
     
 }
 
