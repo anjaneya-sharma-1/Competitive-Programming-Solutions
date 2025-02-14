@@ -12,8 +12,6 @@ public:
         cin >> n >> m;
         vector<string> grid(n);
         pair<ll,ll> start, end;
-        
-        // Read input
         for(int i = 0; i < n; i++) {
             cin >> grid[i];
             for(int j = 0; j < m; j++) {
@@ -30,7 +28,7 @@ public:
         
         q.push({0, {start.first, start.second, -1, 0}});
         
-        vector<pair<ll,ll>> dirs = {{-1,0}, {1,0}, {0,-1}, {0,1}}; // up, down, left, right
+        vector<pair<ll,ll>> dirs = {{-1,0}, {1,0}, {0,-1}, {0,1}}; 
         
         while(!q.empty()) {
             auto [dist, state] = q.front();
