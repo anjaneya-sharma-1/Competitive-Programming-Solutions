@@ -7,6 +7,7 @@ class Solution{
     public:
     map<ll,vector<ll>>m;
     map<ll,ll>count;
+    map<ll,ll>count2;
     ll dfs(ll u,ll p,vector<vector<ll>>&a,vector<ll>&col,vector<ll>&sub,vector<ll>&leaf,vector<ll>&dist,vector<ll>&s){
         sub[u]=0;
         if(p!=1&&p!=0){
@@ -24,6 +25,7 @@ class Solution{
             leaf[u]=1;
             s.push_back(dist[u]);
         }
+        count2[col[u]]+=sub[u];
         m[dist[u]].push_back(sub[u]);
         return sub[u]+1;
     }
@@ -62,7 +64,7 @@ void solve() {
     for(auto i:d){
         ll tot=0;
         for(auto j:m[i]){
-            tot+=j;
+            
         }
     }
 
