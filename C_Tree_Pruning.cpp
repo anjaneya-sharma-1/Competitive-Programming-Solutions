@@ -5,29 +5,16 @@ using namespace std;
 #define MOD 1000000007
 class Solution{
     public:
-    map<ll,vector<ll>>m;
-    map<ll,ll>count;
-    map<ll,ll>count2;
-    ll dfs(ll u,ll p,vector<vector<ll>>&a,vector<ll>&col,vector<ll>&sub,vector<ll>&leaf,vector<ll>&dist,vector<ll>&s){
-        sub[u]=0;
-        if(p!=1&&p!=0){
-            col[u]=col[p];
-            count[col[u]]++;
+    vector<ll>diff;
+    ll dfs(ll u, ll p, vector<vector<ll>>&a,ll level){
+        ll maxi=level;
+        for(auto x:a[u]){
+            if(x==p) continue;
+            maxi=max(maxi,dfs(x,u,a,level+1));
         }
-        for(auto v:a[u]){
-            if(v==p){
-                continue;
-            }
-            dist[v]=dist[u]+1;
-            sub[u]+=dfs(v,u,a,col,sub,leaf,dist,s);
-        }
-        if(sub[u]==0){
-            leaf[u]=1;
-            s.push_back(dist[u]);
-        }
-        count2[col[u]]+=sub[u];
-        m[dist[u]].push_back(sub[u]);
-        return sub[u]+1;
+        diff[level]++;
+        diff[maxi+1]--;
+        return maxi;
     }
     
 void solve() {
@@ -40,39 +27,17 @@ void solve() {
         a[u].push_back(v);
         a[v].push_back(u);
     }
+    diff.resize(n+1);
+    fill(diff.begin(),diff.end(),0);
+    dfs(1,0,a,0);
     
-    vector<ll>sub(n+1);
-    vector<ll>leaf(n+1);
-    vector<ll>s;
-    vector<ll>dist(n+1);
-    vector<ll>col(n+1);
-    ll c=1;
-  
-    for(auto x:a[1]){
-        col[x]=c++;
-        count[col[x]]++;
-    }
-    dist[1]=0;
-    dfs(1,0,a,col,sub,leaf,dist,s);
-    ll ans=INT_MAX;
-    set<ll>d;
+    ll mini=n-diff[0];
+
     for(ll i=1;i<=n;i++){
-        if(leaf[i]){
-            d.insert(dist[i]);
-        }
+        diff[i]+=diff[i-1];
+        mini=min(mini,n-diff[i]);
     }
-    for(auto i:d){
-        ll tot=0;
-        for(auto j:m[i]){
-            
-        }
-    }
-
-    cout<<ans<<endl;
-
-
-
-    
+    cout<<mini<<endl;    
 }
 
 };
