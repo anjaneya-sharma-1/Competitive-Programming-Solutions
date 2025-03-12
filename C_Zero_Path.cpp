@@ -14,7 +14,29 @@ void solve() {
             cin>>grid[i][j];
         }
     }
-    vector<vector<vector<ll>>>dp(n+1,vector<vector<ll>>(m+1,vector<ll>(2*(m+n)+1,0)));
+    vector<vector<pair<ll,ll>>>dp(n+1,vector<pair<ll,ll>>(m+1,{INT_MAX,INT_MIN}));
+    dp[1][1]={grid[1][1],grid[1][1]};
+    for(ll i=1;i<=n;i++){
+        for(ll j=1;j<=m;j++){
+            if(i==1&&j==1){
+                continue;
+            }
+            if(i>1){
+                dp[i][j].first=min(dp[i][j].first,dp[i-1][j].first+grid[i][j]);
+                dp[i][j].second=max(dp[i][j].second,dp[i-1][j].second+grid[i][j]);
+            }
+            if(j>1){
+                dp[i][j].first=min(dp[i][j].first,dp[i][j-1].first+grid[i][j]);
+                dp[i][j].second=max(dp[i][j].second,dp[i][j-1].second+grid[i][j]);
+            }
+        }
+    }
+    if((dp[n][m].first<0&&dp[n][m].second<0)||(dp[n][m].first>0&&dp[n][m].second>0)||(n+m)%2==0){
+        cout<<"NO"<<endl;
+    }
+    else{
+        cout<<"YES"<<endl;
+    }
     
 
     

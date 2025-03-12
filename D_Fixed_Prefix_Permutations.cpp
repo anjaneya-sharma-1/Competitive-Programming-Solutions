@@ -17,7 +17,6 @@ void solve() {
             ll x;
             cin>>x;
             arr[i][j]=x;
-            
             get_pos[i][x]=j;
             
         }
