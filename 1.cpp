@@ -21,7 +21,7 @@ int main(){
     while (t--){ 
         Solution* s = new Solution(); 
         s->solve();
-        delete s; 
+      
 
         }
     return 0;
