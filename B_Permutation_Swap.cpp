@@ -8,27 +8,29 @@ class Solution{
 void solve() {
     ll n;
     cin >> n;
-    ll count = 0;
-    ll ans=0;
-    for(ll i=1;i<=100;i++){
-        if(n%i==0){
-            count++;
-
-        }
-        else{
-            ans=max(ans,count);
-            count=0;
+    vector<ll> a(n+1);
+    map<ll,ll>mp;
+    for(int i = 1 ;i<=n; i++){
+        cin >> a[i];
+        mp[a[i]]=i;
+    }
+    ll gc=0;
+    for(int i=1;i<=n;i++){
+        if(mp[i]!=i){
+            gc=__gcd(gc,abs(mp[i]-i));
         }
     }
-    ans=max(ans,count);
-    cout<<ans<<endl;
+    cout<<gc<<endl;
     
 }
 
 };
 int main(){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
     ll t;
     cin >> t;
+    
     
     while (t--){ 
         Solution* s = new Solution(); 

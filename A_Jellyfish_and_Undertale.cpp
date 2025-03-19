@@ -6,29 +6,25 @@ using namespace std;
 class Solution{
     public:
 void solve() {
-    ll n;
-    cin >> n;
-    ll count = 0;
-    ll ans=0;
-    for(ll i=1;i<=100;i++){
-        if(n%i==0){
-            count++;
-
-        }
-        else{
-            ans=max(ans,count);
-            count=0;
-        }
+    ll a,b,n;
+    cin>>a>>b>>n;
+    vector<ll>arr(n);
+    ll tot=0;
+    for(ll i=0;i<n;i++){
+        cin>>arr[i];
+        tot+=min(arr[i],a-1);
     }
-    ans=max(ans,count);
-    cout<<ans<<endl;
-    
+    tot+=b;
+    cout<<tot<<endl;
 }
 
 };
 int main(){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
     ll t;
     cin >> t;
+    
     
     while (t--){ 
         Solution* s = new Solution(); 

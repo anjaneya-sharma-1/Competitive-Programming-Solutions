@@ -8,27 +8,24 @@ class Solution{
 void solve() {
     ll n;
     cin >> n;
-    ll count = 0;
-    ll ans=0;
-    for(ll i=1;i<=100;i++){
-        if(n%i==0){
-            count++;
-
-        }
-        else{
-            ans=max(ans,count);
-            count=0;
-        }
+    if(n%2||n<4){
+        cout<<-1<<endl;
+        return;
     }
-    ans=max(ans,count);
-    cout<<ans<<endl;
+    cout << (n + 5) / 6 << " " << n / 4 << "\n";
+
+    
+
     
 }
 
 };
 int main(){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
     ll t;
     cin >> t;
+    
     
     while (t--){ 
         Solution* s = new Solution(); 
