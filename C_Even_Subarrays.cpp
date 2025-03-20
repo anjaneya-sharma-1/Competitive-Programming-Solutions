@@ -5,43 +5,33 @@ using namespace std;
 #define MOD 1000000007
 class Solution{
     public:
-    vector<int>mp;
-    Solution(){
-        mp.resize(N+1,0);
-    }
 void solve() {
-    int n;
+    ll n;
     cin>>n;
-    vector<int>a(n+1);
+    vector<ll>a(n+1);
     for(int i=1;i<=n;i++){
         cin>>a[i];
     }
-    int ans=n*(n+1)/2;
-   
+    ll ans=n*(n+1)/2;
+vector<ll>mp(4*n+1,0);
     mp[0]=1;
-    int xorr=0;
+    ll xorr=0;
     for(int i=1;i<=n;i++){
         xorr^=a[i];
-        int tot=0;
-     
+        ll tot=0;
+
             tot+=mp[xorr];
         
-        for(int i=1;i*i<=N;i++){
-            int x=i*i;
+        for(ll i=1;i*i<=2*n;i++){
+            ll x=i*i;
             
-         
+  
                 tot+=mp[xorr^x];
             
         }
         ans-=tot;
         mp[xorr]++;
         
-    }
-    xorr=0;
-    mp[0]=0;
-    for(int i=1;i<=n;i++){
-        xorr^=a[i];
-        mp[xorr]=0;
     }
     cout<<ans<<endl;
     
@@ -53,12 +43,13 @@ int main(){
     std::cin.tie(nullptr);
     ll t;
     cin >> t;
-    Solution* s = new Solution(); 
+    
     
     while (t--){ 
-      
+        Solution* s = new Solution(); 
         s->solve();
-       
+        delete s; 
+
         }
     return 0;
 }
