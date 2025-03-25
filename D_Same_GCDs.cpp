@@ -9,22 +9,34 @@ void solve() {
     ll a,m;
     cin>>a>>m;
     ll g=__gcd(a,m);
-    ll ans=m/g;
-    ans-=a/g;
-    m/=g;
+   
+    ll maxi=a+m-1;
+    ll t=m/g;
+    ll y=(a/g)*g +(a%g==0?0:g);
+    ll ans=maxi/g;
+    ans-=y/g;
+    map<ll,ll>mp2;
     
-
-    for(ll i=1;i*i<=m;i++){
-        if(m%i==0){
-            ll x=i;
-            ll y=m/i;
-            if(x>=a){
-                ans=max(ans,m/x);
-            }
-            if(y>=a){
-                ans=max(ans,m/y);
-            }
+    vector<ll>div;
+    for(ll i=2;i*i<=t;i++){
+        if(t%i==0){
+            div.push_back(i);
+            if(i!=t/i)
+            div.push_back(t/i);
         }
+    }
+    div.push_back(t);
+    map<ll,ll>mp;
+    for(ll i=0;i<div.size();i++){
+        ll x=div[i];
+        while(x<=maxi){
+            if(x>a&&!mp[x]&&mp2[x]){
+                ans--;
+                mp[x]=1;
+            }
+            x+=div[i];
+        }
+
     }
     cout<<ans<<endl;
     
