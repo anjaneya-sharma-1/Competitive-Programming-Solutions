@@ -5,60 +5,7 @@ using namespace std;
 #define MOD 998244353
 class Solution{
     public:
-    unsigned long long power(unsigned long long x, 
-        int y, int p)
-{
-unsigned long long res = 1; // Initialize result
 
-x = x % p; // Update x if it is more than or
-// equal to p
-
-while (y > 0) 
-{
-
-// If y is odd, multiply x with result
-if (y & 1)
-res = (res * x) % p;
-
-// y must be even now
-y = y >> 1; // y = y/2
-x = (x * x) % p;
-}
-return res;
-}
-
-// Returns n^(-1) mod p
-unsigned long long modInverse(unsigned long long n,  
-                  int p)
-{
-return power(n, p - 2, p);
-}
-
-// Returns nCr % p using Fermat's little
-// theorem.
-
-unsigned long long nCrModPFermat(unsigned long long n,
-       int r, int p)
-{
-// If n<r, then nCr should return 0
-if (n < r)
-return 0;
-// Base case
-if (r == 0)
-return 1;
-
-// Fill factorial array so that we
-// can find all factorial of r, n
-// and n-r
-unsigned long long fac[n + 1];
-fac[0] = 1;
-for (int i = 1; i <= n; i++)
-fac[i] = (fac[i - 1] * i) % p;
-
-return (fac[n] * modInverse(fac[r], p) % p
-* modInverse(fac[n - r], p) % p)
-% p;
-}
 void solve() {
     ll n;
     cin >> n;
@@ -67,16 +14,40 @@ void solve() {
     ll even=0;
     for(int i = 1 ;i<=n; i++){
         cin >> a[i];
-        if(a[i]%2){
-            odd++;
+        a[i]%=2;}
+    vector<ll>prev(8,0);
+    ll count0=0;
+    ll count1=0;
+    for(int i=1;i<=n;i++){
+        vector<ll>curr=prev;
+        if(a[i]==0){
+           curr[4]+=(prev[0]+prev[4])%MOD;
+           curr[4]%=MOD;
+           curr[6]+=(prev[3]+prev[7])%MOD;
+           curr[6]%=MOD;
+           curr[0]+=count0;
+           curr[0]%=MOD;
+           curr[2]+=count1;
+           curr[2]%=MOD;
+            count0++;
         }
         else{
-            even++;
-        }
-    }
-    ll ans=((even*(nCrModPFermat(odd,2,MOD))%MOD+nCrModPFermat(even,3,MOD))%MOD)%MOD;
-    cout<<ans<<endl;
+            curr[5]+=(prev[2]+prev[6])%MOD;
+            curr[5]%=MOD;
+            curr[7]+=(prev[5]+prev[1])%MOD;
+            curr[7]%=MOD;
+            curr[1]+=count0;
+            curr[1]%=MOD;
+            curr[3]+=count1;
+            curr[3]%=MOD;
+            count1++;
 
+        }
+        prev=curr;
+    }
+    cout<<(prev[4]+prev[5]+prev[6]+prev[7])%MOD<<endl;
+
+    
 }
 
 };
