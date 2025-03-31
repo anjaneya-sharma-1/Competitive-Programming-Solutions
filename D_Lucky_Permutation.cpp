@@ -42,7 +42,7 @@ void solve() {
         }
         if(count>0){
             ans+=count-1;
-        }
+        } 
         
     }
     if(found){
