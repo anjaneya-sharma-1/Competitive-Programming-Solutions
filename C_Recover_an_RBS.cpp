@@ -1,61 +1,40 @@
 #include <bits/stdc++.h>
-using namespace std;
-#define ll long long
-#define N 1000000
-#define MOD 1000000007
-class Solution{
-    public:
-    bool checkValidString(string s) {
-        bool ans=1;
-        int l =0;
-        int r = 0;
-        map<pair<int,int>,bool>mp;
-        for(int i  =0;i<s.size();i++){
-            if(s[i]=='('){
-                l++;
-                r++;
-            }
-            else if(s[i]=='?'){
-                if(mp[{l,r-3}]){
-                    return 0;
-                }
-                l=max(l-1,0);
-                r++;
-                mp[{l,r}]=1;
-            }
-            else{
-                r--;
-                l=max(l-1,0);
-                if(r<0){
-                    return 0;
-                }
-            }
-        }
-        return l==0;
-    }
-void solve() {
-    string s;
-    cin>>s;
-    ll n=s.length();
-    if(checkValidString(s)){
-        cout<<"YES"<<endl;
-    }
-    else{
-        cout<<"NO"<<endl;
-    }   
-}};
-int main(){
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    ll t;
-    cin >> t;
-    
-    
-    while (t--){ 
-        Solution* s = new Solution(); 
-        s->solve();
-        delete s; 
 
-        }
-    return 0;
-}
+using namespace std;
+
+int main() {
+  auto check = [](const string& s) {
+    int bal = 0;
+    for (char c : s) {
+      if (c == '(') ++bal;
+      if (c == ')') --bal;
+      if (bal < 0) return false;
+    }
+    return bal == 0;
+  };
+  
+  ios::sync_with_stdio(false); cin.tie(0);
+  int t;
+  cin >> t;
+  while (t--) {
+    string s;
+    cin >> s;
+    vector<int> pos;
+    int op = s.size() / 2, cl = s.size() / 2;
+    for (int i = 0; i < s.size(); ++i) {
+      if (s[i] == '?') pos.push_back(i);
+      if (s[i] == '(') --op;
+      if (s[i] == ')') --cl;
+    }
+    for (int i = 0; i < pos.size(); ++i) {
+      if (i < op) s[pos[i]] = '(';
+      else s[pos[i]] = ')';
+    }
+    bool ok = true;
+    if (op > 0 && cl > 0) {
+      swap(s[pos[op - 1]], s[pos[op]]);
+      if (check(s)) ok = false;
+    }
+    cout << (ok ? "YES\n" : "NO\n");
+  }
+} 
