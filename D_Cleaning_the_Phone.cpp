@@ -8,11 +8,13 @@ class Solution{
 void solve() {
     ll n,m;
     cin>>n>>m;
+    ll tot=0;
     vector<ll>val(n);
     vector<ll>a;
     vector<ll>b;
     for(int i=0;i<n;i++){
         cin>>val[i];
+        tot+=val[i];
     }
     for(int j=0;j<n;j++){
         ll x;
@@ -27,7 +29,7 @@ void solve() {
     sort(b.begin(),b.end(),greater<ll>());
     ll sum=0;
     ll ans=INT_MAX;
-    if(accumulate(a.begin(),a.end(),0)+accumulate(b.begin(),b.end(),0)<m){
+    if(tot<m){
         cout<<-1<<"\n";
         return;
     }
@@ -40,6 +42,9 @@ void solve() {
             ans=min(ans,2*(j+1));
             break;
         }
+    }
+    if(b.empty()||j==b.size()){
+        j--;
     }
     for(int i=0;i<a.size();i++){
         bsum+=a[i];
