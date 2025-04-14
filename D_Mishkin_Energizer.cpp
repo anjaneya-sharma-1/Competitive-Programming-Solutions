@@ -1,123 +1,112 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cassert>
 using namespace std;
-#define ll long long
-#define N 1000000
-#define MOD 1000000007
-class Solution{
-    public:
-void solve() {
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    map<char,ll>m;
-    m['L']=0;
-    m['I']=1;
-    m['T']=2;
-    vector<ll>count(3,0);
-    for(int i=0;i<n;i++){
-        if(s[i]=='L'){
-            count[0]++;
-        }
-        else if(s[i]=='I'){
-            count[1]++;
-        }
-        else if(s[i]=='T'){
-            count[2]++;
-        }
-    }
-    ll chck=count[0]==0;
-    chck+= count[1]==0;
-    chck+= count[2]==0;
-    if(chck>1){
-        cout<<-1<<endl;
-        return;
-    }
-    string s1="LIT";
-    char mchar;
-    char smchar;
-    char tmchar;
-    ll maxi=*max_element(count.begin(),count.end());
-    for(int i=0;i<3;i++){
-        if(count[i]==maxi){
-            mchar=s1[i];
-            break;
-        }
-    }
-    ll mi=*min_element(count.begin(),count.end());
-    for(int i=0;i<3;i++){
-        if(count[i]==mi){
-            tmchar=s1[i];
-            break;
-        }
-    }
-    for(auto it:m){
-        if(it.first!=tmchar&&it.first!=mchar){
-            smchar=it.first;
-            break;
-        }
-    }
-    ll countms=0;
-    ll counttm=0;
-    vector<ll>ops;
-    for(int i=0;i<n-1;i++){
-        if((s[i]==mchar&&s[i+1]==smchar)||(s[i]==smchar&&s[i+1]==mchar)){
-            countms++;
-        }
-        if((s[i]==tmchar&&s[i+1]==smchar)||(s[i]==smchar&&s[i+1]==tmchar)){
-            counttm++;
-        }
-    }
-    if((countms<count[m[smchar]]-count[m[tmchar]])){
-        cout<<-1<<endl;
-        return;
-    }
-    if(count[0]==count[1]&&count[1]==count[2]){
-        cout<<0<<endl;
-        return;
-    }
-    string afterOps=s;
-    ll required=count[m[smchar]]-count[m[tmchar]];
-    
-    for(int i=0;i<afterOps.size()-1&&required>0;i++){
-        if((s[i]==mchar&&s[i+1]==smchar)||(s[i]==smchar&&s[i+1]==mchar)){
-            ops.push_back(i+1);
-            required--;
-            afterOps=afterOps.substr(0,i+1)+tmchar+afterOps.substr(i+2,afterOps.size()-i-1);
-            i++;
-        }
-    }
-    required=count[m[mchar]]-count[m[smchar]];
-    required*=2;
-    for(int i=0;i<afterOps.size()-1;i++){
-        if((afterOps[i]==smchar&&afterOps[i+1]==mchar)||(afterOps[i]==mchar&&afterOps[i+1]==smchar)){
-            ll curr=i+1;
-            while(required--){
-                ops.push_back(curr);
-                curr++;
-            }
-            break;
-        }
-    }
-    cout<<ops.size()<<endl;
-    for(auto x:ops){
-        cout<<x<<endl;
-    }
+
+char missingChar(char a, char b) {
+   
+    if ((a=='L' && b=='I') || (a=='I' && b=='L')) return 'T';
+    if ((a=='L' && b=='T') || (a=='T' && b=='L')) return 'I';
+    if ((a=='I' && b=='T') || (a=='T' && b=='I')) return 'L';
+    return '#'; 
 }
 
-};
-int main(){
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    ll t;
-    cin >> t;
+void solveTest() {
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    
+    int countL = 0, countI = 0, countT = 0;
+    for (char ch : s) {
+        if (ch=='L') countL++;
+        if (ch=='I') countI++;
+        if (ch=='T') countT++;
+    }
+    
+    int missingCount = (countL == 0) + (countI == 0) + (countT == 0);
+    if (missingCount > 1) {
+        cout << -1 << "\n";
+        return;
+    }
     
     
-    while (t--){ 
-        Solution* s = new Solution(); 
-        s->solve();
-      
+    bool solved = false;
+    vector<int> bestOps;
 
+    for (int k = 0; k <= 2 * n && !solved; k++) {
+        if ((n + k) % 3 != 0) continue;
+        int target = (n + k) / 3;
+        
+        if (target < countL || target < countI || target < countT)
+            continue;
+        
+
+        int needL = target - countL;
+        int needI = target - countI;
+        int needT = target - countT;
+        
+        string s_cur = s; 
+        vector<int> ops; 
+        
+        bool progress = true;
+        while (progress) {
+            progress = false;
+            for (int i = 0; i < (int) s_cur.size() - 1; i++) {
+                if (s_cur[i] == s_cur[i+1])
+                    continue;
+        
+                char x = missingChar(s_cur[i], s_cur[i+1]);
+          
+                bool needed = false;
+                if (x == 'L' && needL > 0) needed = true;
+                if (x == 'I' && needI > 0) needed = true;
+                if (x == 'T' && needT > 0) needed = true;
+                if (!needed)
+                    continue;
+                
+        
+                ops.push_back(i + 1);
+
+                s_cur.insert(s_cur.begin() + i + 1, x);
+      
+                if (x == 'L') needL--;
+                if (x == 'I') needI--;
+                if (x == 'T') needT--;
+                
+                progress = true;
+      
+                break;
+            }
         }
+        
+
+        if (needL == 0 && needI == 0 && needT == 0) {
+        
+            solved = true;
+            bestOps = ops;
+            
+        }
+    }
+    
+    if (!solved) {
+        cout << -1 << "\n";
+        return;
+    }
+
+    cout << bestOps.size() << "\n";
+    for (int op : bestOps)
+        cout << op << "\n";
+}
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t;
+    cin >> t;
+    while (t--) {
+        solveTest();
+    }
     return 0;
 }

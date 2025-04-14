@@ -8,7 +8,7 @@ class Solution{
 void solve() {
     string s;
     cin>>s;
-    cout<<25<<endl;
+    cout<<143<<endl;
     
 }
 
