@@ -65,5 +65,11 @@
         "xmemory": "cpp",
         "xstddef": "cpp",
         "xtr1common": "cpp"
+    },
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
     }
 }
